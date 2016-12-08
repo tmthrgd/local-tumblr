@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang=en>
+<head>
+	<meta charset=utf-8>
+	<meta name=viewport content="width=device-width,initial-scale=1">
+	<title>local-tumblr</title>
+	<link rel=stylesheet href="{{asset_path "style.css"}}">
+</head>
+<body>
+	<header class=site-header>
+		<h1>local-tumblr</h1>
+	</header>
+
+	<main>
+		<form method=get action=/goto/>
+			<label for=url class=offscreen>Tumblr URL:</label>
+			<input class=url name=url type=url placeholder="Paste a Tumblr blog or post URL here." autofocus>
+		</form>
+
+		<hr>
+
+		<ul>
+		{{- range .}}
+			<li><a href="/b/{{.Name}}/">{{.Name}}</a>: {{.Title}}
+				{{- if ne .LastPost 0}} <a href="/d/{{.Url.Host}}/u/{{.LastPost}}/" title="Update">↺</a>
+				{{- end}} <a href="{{.Url.String}}" title="View on Tumblr">⤴</a></li>
+		{{- end}}
+		</ul>
+	</main>
+
+	<footer class=site-footer>
+		<p>© 2016 <a href=https://tomthorogood.co.uk/>Tom Thorogood</a>.</p>
+	</footer>
+</body>
+{{- /* -*- mode: html;-*- */ -}}

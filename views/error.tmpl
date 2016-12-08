@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang=en>
+<head>
+	<meta charset=utf-8>
+	<meta name=viewport content="width=device-width,initial-scale=1">
+	<title>{{.Code}}: {{.Name}} · local-tumblr</title>
+	<link rel=stylesheet href="{{asset_path "style.css"}}">
+</head>
+<body>
+	<header class=site-header>
+		<h1><a href=/>local-tumblr</a></h1>
+		<h2>{{.Code}}: {{.Name}}</h2>
+	</header>
+
+	<main>
+		{{if .Message -}}
+			<p>{{.Message}}</p>
+		{{- end}}
+		{{if .Description -}}
+			<p>{{.Description}}</p>
+		{{- end}}
+	</main>
+</body>
+{{- .Padding -}}
+{{- /* -*- mode: html;-*- */ -}}

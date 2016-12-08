@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang=en>
+<head>
+	<meta charset=utf-8>
+	<meta name=viewport content="width=device-width,initial-scale=1">
+	<title>{{.Title}} · local-tumblr</title>
+	<link rel=stylesheet href="{{asset_path "style.css"}}">
+</head>
+<body>
+	<header class=site-header>
+		<h1><a href=/>local-tumblr</a></h1>
+		<h2>{{.Title}} <a href="{{.Url.String}}" title="View on Tumblr">⤴</a></h2>
+	</header>
+
+	<main>
+	{{- range .Posts}}
+		<article class="post {{.Type}}">
+		{{- if eq .Type "text"}}
+			<header class=post-header>
+				<h2 class=title>{{.Title}}</h2>
+			</header>
+
+			<div class=post-body>
+				{{.Body | raw_html}}
+			</div>
+		{{else if eq .Type "photo" -}}
+			{{- if eq (len .Photos) 1}}
+			{{with $img := (index .Photos 0) -}}
+				<img src="{{$img.OriginalSize.Url | image_path}}" alt="{{.Caption}}">
+			{{- end}}
+
+			<div class=caption>
+				{{.Caption | raw_html}}
+			</div>
+			{{- else -}}
+			<div class=post-body>
+				{{range .Photos}}
+					<img src="{{.OriginalSize.Url | image_path}}" title="{{.Caption}}" alt="{{.Caption}}">
+				{{end}}
+			</div>
+			{{- end}}
+		{{else if eq .Type "quote"}}
+			<div class=post-body>
+				<blockquote>{{.Text}}</blockquote>
+				{{if .Source -}}
+					<p class=source>{{.Source | raw_html}}</p>
+				{{- end}}
+			</div>
+		{{else if eq .Type "link"}}
+			<header class=post-header>
+				<h2 class=link><a href="{{.Url.String}}">{{.Title}}</a></h2>
+			</header>
+
+			<div class=post-body>
+				{{.Description | raw_html}}
+			</div>
+		{{else if eq .Type "chat"}}
+			{{if .Title -}}
+			<header class=post-header>
+				<h2 class=title>{{.Title}}</h2>
+			</header>
+			{{- end}}
+
+			<ul class="post-body dialogue">
+				{{range .Dialogue}}
+				<li>
+					{{if .Label -}}
+						<span class=chat-label>{{.Label | raw_html}}</span>
+					{{- end}}
+					<q class=phrase>{{.Phrase | raw_html}}</q>
+				</li>
+				{{end}}
+			</ul>
+		{{else if eq .Type "audio"}}
+			<div class=post-body>
+				{{.Player}}
+
+				<div class=caption>
+					{{.Caption | raw_html}}
+				</div>
+			</div>
+		{{else if eq .Type "video"}}
+			<div class=post-body>
+				{{(index .Player (sub (len .Player) 1)).EmbedCode | raw_html}}
+
+				<div class=caption>
+					{{.Caption | raw_html}}
+				</div>
+			</div>
+		{{end -}}
+		</article>
+	{{- end}}
+
+	{{- if ne (len .Posts) 0}}
+
+		<footer>
+			<p><a href="/b/{{.Name}}/a/{{(index .Posts 0).Id}}/">← Prev page</a> · <a href="/b/{{.Name}}/b/{{(index .Posts (sub (len .Posts) 1)).Id}}/">Next page →</a></p>
+		</footer>
+	{{- end}}
+	</main>
+
+	<footer class=site-footer>
+		<p>© 2016 <a href=https://tomthorogood.co.uk/>Tom Thorogood</a>.</p>
+	</footer>
+</body>
+{{- /* -*- mode: html;-*- */ -}}

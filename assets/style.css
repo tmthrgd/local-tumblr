@@ -1,0 +1,62 @@
+/*! http://bettermotherfuckingwebsite.com/ */
+body {
+	margin: 40px auto;
+	padding:0 10px;
+
+	max-width: 700px;
+
+	line-height: 1.6;
+	font-size: 18px;
+
+	color: #444;
+}
+
+h1, h2, h3 {
+	line-height: 1.2;
+}
+
+/*! https://rawgit.com/ */
+.offscreen {
+	position: absolute;
+	left: -9999px;
+}
+
+input.url {
+	width: 100%;
+
+	padding: 0 6px;
+
+	background: #fbfbfb;
+	border: thin solid #dfdfdf;
+
+	font-size: 1.3em;
+	text-align: center;
+
+	cursor: text;
+}
+
+/*!
+ * Copyright 2016 Tom Thorogood. All rights reserved.
+ * Use of this source code is governed by a
+ * Modified BSD License license that can be found in
+ * the LICENSE file.
+ */
+ul {
+	list-style-type: square;
+}
+
+pre {
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+
+
+.post {
+	border-bottom: thin solid #eee;
+	padding: 5px 0;
+	margin: 10px 0;
+}
+
+.post.photo img {
+	max-width: 100%;
+}
